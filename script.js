@@ -3,6 +3,7 @@ const play = document.getElementById('play');
 const stop = document.getElementById('stop');
 const pause = document.getElementById('pause');
 const progress = document.getElementById('progress');
+const timestamp = document.getElementById('timestamp');
 
 //Play Pause video and update play pause icon
 function toggleVideoStatus() {
@@ -23,11 +24,26 @@ function updatePlayIcon() {
 
 //Update progress and timestamp, set up video to progress
 function updateProgress() {
-  return true;
+  progress.value = (video.currentTime / video.duration) * 100;
+
+  //Get time
+  // get minutes
+  let mins = Math.floor(video.currentTime / 60);
+  if (mins < 10) {
+    mins = '0' + String(mins);
+  }
+
+  //get seconds
+  let secs = Math.floor(video.currentTime % 60);
+  if (secs < 10) {
+    secs = '0' + String(secs);
+  }
+
+  timestamp.innerHTML = `${mins}:${secs}`;
 }
 
 function setVideoProgress() {
-  return true;
+  video.currentTime = (+progress.value * video.duration) / 100;
 }
 
 //stop video
